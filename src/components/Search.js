@@ -10,7 +10,7 @@ class Search extends Component {
             searchResults: [],
             searchValue: '',
             lastSearched: '',
-            hasSearched: 'false',
+            hasSearched: false,
             cookbooks: [],
             totalPages: 0,
             currentPage: 0,
@@ -44,12 +44,15 @@ class Search extends Component {
                 const formattedBooks = cookbooks.map(cookbook => (cookbook.playlist_name));
 
                 this.setState({cookbooks: formattedBooks});
-                console.log(formattedBooks);
             })
             .catch(error => {
                 console.error('The following error occured: ', error);
             });
     }
+
+    updateBooks = (newBooks) =>{
+        this.setState({cookbooks: newBooks});
+    };
 
     nextPage = () => {
         this.setState((prevState) => ({
@@ -81,6 +84,7 @@ class Search extends Component {
                 id={recipe.id}
                 name={recipe.name}
                 cookbooks = {this.state.cookbooks}
+                updateBooks = {this.updateBooks}
             />
 
         ));
@@ -91,33 +95,33 @@ class Search extends Component {
 
         return (
             <>
-                <Container fluid className="mb-5" style={{height: "200px", backgroundColor: "Red"}}>
+                <Container fluid className="mb-5" style={{height: "200px", backgroundColor: "#590209"}}>
                     <div className="row h-100 justify-content-center align-items-center">
-                        <div className="col col-8" style={{backgroundColor: "blue"}}>
+                        <div className="col col-8">
 
                             <div className="input-group">
                                 <input type="text" value={this.state.searchValue} onChange={this.handleChange} className="form-control" placeholder="Search"/>
                                 <div className="input-group-append">
-                                    <button className="btn btn-success" type="button" onClick={this.executeSearch}>Button</button>
+                                    <button className="btn rounded rounded-right" style={{ backgroundColor: '#A61731', color: 'white' }} type="button" onClick={this.executeSearch}>Search</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </Container>
-                <Container style={{backgroundColor: '#F2CEAE', padding:'0'}}>
+                <Container style={{padding:'0'}}>
                     <div className="row mb-3">
-                        {hasSearched ? (<h1>You Search For {this.state.lastSearched}</h1>) : (<h1>Search for recipes above!</h1>)}
+                        {this.state.hasSearched ? (<h1 style={{fontFamily: 'Roboto'}}>You Search For {this.state.lastSearched}</h1>) : (<h1>Search for recipes above!</h1>)}
                     </div>
                     {this.renderRecipes()}
                 </Container>
 
-                {this.state.lastSearched ? (
+                {this.state.lastSearched && (
                     <>
                         <button className="btn btn-success" type="button" onClick={this.nextPage}>Next Page</button>
                         <button className="btn btn-success" type="button" onClick={this.prevPage}>Prev Page</button>
                     </>
-                    ): (<></>)}
+                )}
 
             </>
         );

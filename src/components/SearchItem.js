@@ -29,7 +29,7 @@ const SearchItem = (props) =>{
     const handleFavButton = async () => {
         try {
             const data = await addFavourite(props.id);
-            setIsFav(data);
+            setIsFav(data.favourite);
 
         } catch (error){
             console.error("Error toggling the recipe as favourite: ", error);
@@ -49,16 +49,12 @@ const SearchItem = (props) =>{
 
         addCookbook(newBookName, props.id)
             .then(response => {
-                const cookbooks = response.cookbooks;
 
-                if (cookbooks) {
-                    const formattedBooks = cookbooks.map(cookbook => cookbook.playlist_name);
-                    this.setState({ cookbooks: formattedBooks });
-                    console.log("Here are the new books: ", formattedBooks);
-                } else {
-                    console.error('Invalid response format:', response);
-                }
-        })
+                console.log("Cookbooks: ", response);
+                const formattedBooks = response.map(cookbook => (cookbook.playlist_name));
+                props.updateBooks(formattedBooks);
+
+            })
             .catch(error => {
                 console.error('The following error occured: ', error);
             });
@@ -72,7 +68,7 @@ const SearchItem = (props) =>{
     }
 
     return (
-        <div className="card">
+        <div className="card mb-2">
             <div className="row align-items-center">
                 <div className="col-md-4">
                     <img className="img-fluid rounded-start" src={foodimage} alt=""/>
@@ -88,8 +84,8 @@ const SearchItem = (props) =>{
                 </div>
                 <div className="col-md-2 justify-content-center">
                     <div className="row">
-                        <div className="col-6">
-                            <button onClick={handleFavButton}> {isFav ? (<>Unfavourite</>) : (<>Favourite</>)} </button>
+                        <div className="col-md-2 d-flex justify-content-center align-content-center">
+                            <button className="btn btn=success" onClick={handleFavButton}> {isFav ? (<>Unfavourite</>) : (<>Favourite</>)} </button>
                             <Dropdown>
                                 <Dropdown.Toggle variant="success">
                                     Cookbooks
