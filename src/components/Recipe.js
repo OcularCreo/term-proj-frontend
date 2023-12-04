@@ -70,6 +70,25 @@ const RecipeDetails = () => {
         ));
     }
 
+    //creating html elements for all the ingredients listed in the recipe
+    const renderRecipeList = (type) =>{
+
+        //do nothing if there isn't a recipe or any tags in the recipe
+        if(!recipe || !recipe[type]){
+            console.log("No recipes or tags");
+            return null;
+        }
+
+        const itemsArray = JSON.parse(recipe[type].replace(/'/g, '"'));
+
+        return itemsArray.map((item) => (
+
+            <li>{item}</li>
+
+        ));
+
+    }
+
     return (
         <>
             {recipe ? (
@@ -80,7 +99,7 @@ const RecipeDetails = () => {
 
                         {/* Card image */}
                         <img src={foodimage} className="card-img-top" alt="Recipe Visual" style={{objectFit: "cover"}} height="400"/>
-                        <div className="card-body">
+                        <div className="card-body p-5">
 
                             {/* Card/recipe name */}
                             <div className="row">
@@ -88,27 +107,29 @@ const RecipeDetails = () => {
                             </div>
 
                             {/* Favourite and add to cookbook buttons */}
-                            <div className="row justify-content-start">
-                                <div><FavBtn id={recipe.id}></FavBtn></div>
-                                <div>{cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} onBookCreated={updateBooks}></BookBtn> )}</div>
+                            <div className="row my-3">
+                                <div className='d-flex justify-content-center justify-content-md-start'>
+                                    <span className='mx-1'><FavBtn id={recipe.id}></FavBtn></span>
+                                    {cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} onBookCreated={updateBooks}></BookBtn> )}
+                                </div>
                             </div>
 
                             {/* tabs area */}
-                            <div className="row card-text my-3">
-                                <h4>Tags<br/></h4>
+                            <div className="row card-text my-4">
+                                <h5>Tags<br/></h5>
                                 <div>
                                     {renderTags()}
                                 </div>
                             </div>
 
                             {/* time display & number of ingredients display*/}
-                            <div className="row my-4">
-                                <div className="col-1">
+                            <div className="my-4 d-flex justify-content-start">
+                                <div className="">
                                     {/* Only render recipe.minutes if it exists */}
                                     <h3>{recipe.minutes && (recipe.minutes)}</h3>
                                     <h3>Mins</h3>
                                 </div>
-                                <div className="col-2">
+                                <div className="mx-4">
                                     {/* Only render recipe.ingred_num if it exists */}
                                     <h3>{recipe.ingred_num && (recipe.ingred_num)}</h3>
                                     <h3>Ingredients</h3>
@@ -117,14 +138,24 @@ const RecipeDetails = () => {
 
                             {/* recipe steps plus section to adjust proportions */}
                             <div className="row">
+                                <h2>Ingredients</h2>
                                 <div className="col-10 card-text">
                                     <ol>
-                                        <li>Season</li>
-                                        <li>Cook</li>
-                                        <li>Eat</li>
+                                        {renderRecipeList('ingreds')}
                                     </ol>
                                 </div>
+                                {/*Probably remove this soon*/}
                                 <div className="col-2" style={{backgroundColor: 'blue'}}>
+                                </div>
+                            </div>
+
+                            {/* recipe steps plus section to adjust proportions */}
+                            <div className="row mt-4">
+                                <h1>Instructions</h1>
+                                <div className="col-10 card-text">
+                                    <ol>
+                                        {renderRecipeList('steps')}
+                                    </ol>
                                 </div>
                             </div>
 

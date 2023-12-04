@@ -117,12 +117,18 @@ const SearchItem = (props) =>{
                     <div className="col-md-2 d-flex justify-content-center">
 
                         {/* cookbook button */}
-                        <BookBtn id={props.id} cookbooks={props.cookbooks} onBookCreated={props.updateBooks}></BookBtn>
+
+                            <BookBtn id={props.id} cookbooks={props.cookbooks} onBookCreated={props.updateBooks}></BookBtn>
+
+                        {/*silly way to add space between these two guys*/}
+                        <span className='mx-1'>
+                        </span>
 
                         {/* Favourite button */}
                         <FavBtn id={props.id}></FavBtn>
 
                     </div>
+                    <div className='my-sm-3'></div>
 
                 </div>
 
