@@ -50,6 +50,7 @@ class Search extends Component {
             });
     }
 
+    //call back function for when users create a new book
     updateBooks = (newBooks) =>{
         this.setState({cookbooks: newBooks});
     };
@@ -111,7 +112,7 @@ class Search extends Component {
                 </Container>
                 <Container style={{padding:'0'}}>
                     <div className="row mb-3">
-                        {this.state.hasSearched ? (<h1 style={{fontFamily: 'Roboto'}}>You Search For {this.state.lastSearched}</h1>) : (<h1>Search for recipes above!</h1>)}
+                        {this.state.hasSearched ? (<h1 style={{fontFamily: 'Roboto'}}>You Search For <b>{this.state.lastSearched}</b></h1>) : (<h1>Search for recipes above!</h1>)}
                     </div>
                     {this.renderRecipes()}
                 </Container>

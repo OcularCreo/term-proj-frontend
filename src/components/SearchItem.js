@@ -20,25 +20,6 @@ const SearchItem = (props) =>{
     const [newBookName, setNewBookName] = useState('');               //used to fill out new book names
     const [showAlert, setAlert] = useState(false);                  //used to alert users when they have tried to submit an empty title for a book
 
-    /*
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-
-                const recipeStatus = await getRecipeStatus(props.id);
-                setIsFav(recipeStatus);
-
-            }
-            catch(error){
-                console.error("Error fetching Recipe: ", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-     */
-
     const handleFavButton = async () => {
         try {
             const data = await addFavourite(props.id);
@@ -128,7 +109,7 @@ const SearchItem = (props) =>{
                         <FavBtn id={props.id}></FavBtn>
 
                     </div>
-                    <div className='my-sm-3'></div>
+                    <div className='my-md-0 my-sm-3'></div>
 
                 </div>
 

@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Search from './components/Search';
 import Recipe from './components/Recipe';
 import Login from './components/Login';
+import Library from "./components/Library";
 import Register from './components/Register';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
@@ -17,6 +18,7 @@ function App(){
               <Routes>
                   <Route index element={<Search />} />
                   <Route path="/search" element={<Search />} />
+                  <Route path="/library" element={<Library />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/recipe/:recipeId" element={<Recipe />} />
