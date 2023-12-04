@@ -44,6 +44,10 @@ const RecipeDetails = () => {
     }, []);
 
 
+    //callback function needed to use the bookbtn
+    const updateBooks = (newbooks) =>{
+        setBooks(newbooks);
+    }
 
 
     //returns a set of html for each tag in the recipe.
@@ -90,7 +94,7 @@ const RecipeDetails = () => {
                                     <a href="/" className="btn btn-primary w-100 h-100 text-center">Add to Cookbook</a>
                                 </div>
                                 <FavBtn id={recipe.id}></FavBtn>
-                                {cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} setBooks={setBooks}></BookBtn> )}
+                                {cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} onBookCreated={updateBooks}></BookBtn> )}
                             </div>
 
                             {/* tabs area */}

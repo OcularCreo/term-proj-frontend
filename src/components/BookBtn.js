@@ -22,7 +22,7 @@ const BookBtn = (props) =>{
 
                     console.log("Cookbooks: ", response);
                     const formattedBooks = response.map(cookbook => (cookbook.playlist_name));
-                    props.setBooks(formattedBooks);
+                    props.onBookCreated(formattedBooks);
 
                 })
                 .catch(error => {

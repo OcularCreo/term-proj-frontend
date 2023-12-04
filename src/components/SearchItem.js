@@ -123,7 +123,7 @@ const SearchItem = (props) =>{
                             </Dropdown.Menu>
                         </Dropdown>
 
-                        <BookBtn id={props.id} cookbooks={props.cookbooks}></BookBtn>
+                        <BookBtn id={props.id} cookbooks={props.cookbooks} onBookCreated={props.updateBooks}></BookBtn>
 
                         {/* Favourite button */}
                         <button className="btn" style={{ backgroundColor: '#590209' }} onClick={handleFavButton}>
