@@ -23,16 +23,40 @@ const RecipeDetails = () => {
         fetchData();
     }, []);
 
+    //returns a set of html for each tag in the recipe.
+    const renderTags = () => {
+
+        //do nothing if there isn't a recipe or any tags in the recipe
+        if(!recipe || !recipe.tags){
+            console.log("No recipes or tags");
+            return null;
+        }
+
+        return recipe.tags.map((tag) => (
+
+            <span className='badge bg-primary me-2'>{tag}</span>
+
+        ));
+    }
+
     return (
         <>
             {recipe ? (
                 <Container>
+
+                    {/* Card div (contains all info about recipe) */}
                     <div className="card mt-5" style={{width: "100%"}}>
+
+                        {/* Card image */}
                         <img src={foodimage} className="card-img-top" alt="Recipe Visual" style={{objectFit: "cover"}} height="400"/>
                         <div className="card-body">
+
+                            {/* Card/recipe name */}
                             <div className="row">
-                                <h1 className="card-title text-md-start text-sm-center">{recipe.name} </h1>
+                                <h1 className="card-title text-md-start text-sm-center text-capitalize">{recipe.name} </h1>
                             </div>
+
+                            {/* Favourite and add to cookbook buttons */}
                             <div className="row justify-content-start">
                                 <div className="col-md-2 col-sm-12">
                                     <a href="/" className="btn btn-primary w-100 h-100 text-center">Favourite</a>
@@ -41,6 +65,8 @@ const RecipeDetails = () => {
                                     <a href="/" className="btn btn-primary w-100 h-100 text-center">Add to Cookbook</a>
                                 </div>
                             </div>
+
+                            {/* tabs area */}
                             <div className="row card-text">
                                 <h4>Tags<br/></h4>
                                 <div className="rounded" style={{backgroundColor: "blue", width: "100px"}}>
@@ -53,6 +79,8 @@ const RecipeDetails = () => {
                                     <h5 className="text-center align-middle"><span className="align-middle">test</span></h5>
                                 </div>
                             </div>
+
+                            {/* time display & number of ingredients display*/}
                             <div className="row">
                                 <div className="col-2">
                                     <h3>45</h3>
@@ -63,6 +91,8 @@ const RecipeDetails = () => {
                                     <h3>Ingredients</h3>
                                 </div>
                             </div>
+
+                            {/* recipe steps plus section to adjust proportions */}
                             <div className="row">
                                 <div className="col-10 card-text">
                                     <ol>

@@ -116,11 +116,18 @@ class Search extends Component {
                     {this.renderRecipes()}
                 </Container>
 
+                {/*When the user has searched something then we show the next and last page buttons*/}
                 {this.state.lastSearched && (
-                    <>
-                        <button className="btn btn-success" type="button" onClick={this.nextPage}>Next Page</button>
-                        <button className="btn btn-success" type="button" onClick={this.prevPage}>Prev Page</button>
-                    </>
+                    <Container fluid className="bg-light pb-3">
+                        <div className='row d-flex justify-content-between'>
+                            <div className='col-md-2'>
+                                <button className="btn" type="button" onClick={this.prevPage}>Prev Page</button>
+                            </div>
+                            <div className='col-md-2'>
+                                <button className="btn" type="button" onClick={this.nextPage}>Next Page</button>
+                            </div>
+                        </div>
+                    </Container>
                 )}
 
             </>
