@@ -34,15 +34,6 @@ const BookBtn = (props) =>{
             setNewBookName('');
         }
 
-
-        //only close the modal if the input was not empty
-        /*
-        if(newBookName.trim().length > 0){
-
-        }
-        */
-
-
     }
 
     //creating a link for each existing cookbook attached to the account

@@ -13,8 +13,10 @@ const RecipeDetails = () => {
     const [cookbooks, setBooks] = useState(null);
     const { recipeId } = useParams();
 
+
     useEffect(() => {
-        const fetchData = async () => {
+
+        const fetchRecipeData = async () => {
             try {
 
                 const data = await fetchRecipe(recipeId);
@@ -39,7 +41,7 @@ const RecipeDetails = () => {
                 });
         }
 
-        fetchData();
+        fetchRecipeData();
         retrieveBooks();
     }, []);
 
@@ -87,20 +89,14 @@ const RecipeDetails = () => {
 
                             {/* Favourite and add to cookbook buttons */}
                             <div className="row justify-content-start">
-                                <div className="col-md-2 col-sm-12">
-                                    <a href="/" className="btn btn-primary w-100 h-100 text-center">Favourite</a>
-                                </div>
-                                <div className="col-lg-2 col-md-3 col-sm-12">
-                                    <a href="/" className="btn btn-primary w-100 h-100 text-center">Add to Cookbook</a>
-                                </div>
-                                <FavBtn id={recipe.id}></FavBtn>
-                                {cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} onBookCreated={updateBooks}></BookBtn> )}
+                                <div><FavBtn id={recipe.id}></FavBtn></div>
+                                <div>{cookbooks && ( <BookBtn id={recipe.id} cookbooks={cookbooks} onBookCreated={updateBooks}></BookBtn> )}</div>
                             </div>
 
                             {/* tabs area */}
                             <div className="row card-text my-3">
                                 <h4>Tags<br/></h4>
-                                <div className=''>
+                                <div>
                                     {renderTags()}
                                 </div>
                             </div>

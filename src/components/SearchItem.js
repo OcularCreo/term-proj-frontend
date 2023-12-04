@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { addFavourite, getRecipeStatus, addCookbook } from "../services/apiServices";
 
 import BookBtn from "./BookBtn";
+import FavBtn from "./FavBtn";
 
 const SearchItem = (props) =>{
 
@@ -19,6 +20,7 @@ const SearchItem = (props) =>{
     const [newBookName, setNewBookName] = useState('');               //used to fill out new book names
     const [showAlert, setAlert] = useState(false);                  //used to alert users when they have tried to submit an empty title for a book
 
+    /*
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -34,6 +36,8 @@ const SearchItem = (props) =>{
 
         fetchData();
     }, []);
+
+     */
 
     const handleFavButton = async () => {
         try {
@@ -111,30 +115,13 @@ const SearchItem = (props) =>{
 
                     {/* Recipe two button styling section */}
                     <div className="col-md-2 d-flex justify-content-center">
-                        {/* cookbook button */}
-                        <Dropdown className="mr-2">
-                            <Dropdown.Toggle style={{ backgroundColor: '#590209' }} className='border-0'>
-                                <i className="bi bi-book-fill"></i>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu className={`w-${creatingNewBook ? '600' : 'auto'}`}>
-                                <Dropdown.Header>Cookbooks</Dropdown.Header>
-                                {cookbookLinks}
-                                <Dropdown.Item onClick={showNewBookFields}>New Book</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
 
+                        {/* cookbook button */}
                         <BookBtn id={props.id} cookbooks={props.cookbooks} onBookCreated={props.updateBooks}></BookBtn>
 
                         {/* Favourite button */}
-                        <button className="btn" style={{ backgroundColor: '#590209' }} onClick={handleFavButton}>
-                            <span style={{ color: 'white' }}>
-                                {isFav ? (
-                                    <i className="bi bi-heart-fill"></i>
-                                ) : (
-                                    <i className="bi bi-heart"></i>
-                                )}
-                            </span>
-                        </button>
+                        <FavBtn id={props.id}></FavBtn>
+
                     </div>
 
                 </div>
