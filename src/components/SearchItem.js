@@ -10,6 +10,8 @@ import { Dropdown, Form, Button, FormControl, InputGroup, Modal } from "react-bo
 import { Link } from 'react-router-dom';
 import { addFavourite, getRecipeStatus, addCookbook } from "../services/apiServices";
 
+import BookBtn from "./BookBtn";
+
 const SearchItem = (props) =>{
 
     const [isFav, setIsFav] = useState(null);                                //used to determine if the recipe is favourited
@@ -121,6 +123,8 @@ const SearchItem = (props) =>{
                             </Dropdown.Menu>
                         </Dropdown>
 
+                        <BookBtn id={props.id} cookbooks={props.cookbooks}></BookBtn>
+
                         {/* Favourite button */}
                         <button className="btn" style={{ backgroundColor: '#590209' }} onClick={handleFavButton}>
                             <span style={{ color: 'white' }}>
@@ -157,7 +161,7 @@ const SearchItem = (props) =>{
 
             </div>
 
-            {/* Favourite button */}
+            {/* shows alert when invalid text is entered while creating book */}
             {showAlert && (
                 <div className="alert alert-warning alert-dismissible fade show" role="alert">
                     The name you entered is blank.

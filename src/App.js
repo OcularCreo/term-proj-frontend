@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Search from './components/Search';
 import Recipe from './components/Recipe';
 import Login from './components/Login';
-import Register from './components/Register'
+import Register from './components/Register';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 
