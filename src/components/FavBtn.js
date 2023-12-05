@@ -14,6 +14,7 @@ const FavBtn = (props) =>{
                 setIsFav(recipeStatus);
 
                 console.log("isFav right now: ", isFav);
+                console.log("Recipe Status now: ", recipeStatus);
 
             }
             catch(error){

@@ -55,7 +55,7 @@ const BookRecipesSection = (props) =>{
           <div className='d-flex mb-3'>
               <h1 className=''>{props.book}</h1>
               <div className='mx-1'></div>
-              <div className='btn text-center align-middle'><i className="bi bi-trash3-fill"></i></div>
+              <div className='btn text-center align-middle' onClick={()=>props.handleDeleteBook(props.book)}><i className="bi bi-trash3-fill"></i></div>
           </div>
           {renderRecipes()}
       </>

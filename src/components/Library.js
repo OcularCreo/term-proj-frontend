@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Button, Container, FormControl, InputGroup, Modal, ToggleButton} from "react-bootstrap";
 import { ButtonGroup, ToggleButtonGroup } from "react-bootstrap";
-import {addFavourite, getBookRecipes, getCookBooks, getFavs} from "../services/apiServices";
+import {addFavourite, deleteBook, getBookRecipes, getCookBooks, getFavs} from "../services/apiServices";
 import foodimage from "../images/chicken.jpg";
 import FavBtn from "./FavBtn";
 import BookBtn from "./BookBtn";
@@ -25,20 +25,25 @@ class Library extends Component{
 
     componentDidMount() {
 
-        //retrieving all recipies that have been favourite by the user
-        this.retrieveFavs();
+        this.retrieveFavs();  //retrieving all recipes that have been favourite by the user
+        this.retrieveBooks(); //getting all users cookbooks when didMount
 
+    }
+
+    retrieveBooks = () =>{
         //retriving all the cookbooks made by the user along with the recipes in them
         getCookBooks().then(cookbooks => {
 
             const formattedBooks = cookbooks.map(cookbook => (cookbook.playlist_name));
 
             this.setState({cookbooks: formattedBooks});
+
         })
             .catch(error => {
                 console.error('The following error occured: ', error);
             });
     }
+
 
     //deals with if user is viewing cookbooks or favourited recipes in the library page
     handleRadioChange = (e) =>{
@@ -54,6 +59,20 @@ class Library extends Component{
     updateBooks = (newBooks) =>{
         this.setState({cookbooks: newBooks});
     };
+
+    handleDeleteBook = (bookname) =>{
+
+        console.log("trying to delete");
+
+        deleteBook(bookname)
+            .then(
+                this.retrieveBooks,
+                this.renderBookSections
+            )
+            .catch(error =>{
+                console.log('the following error has happened: ', error);
+            });
+    }
 
     //get the all the users favourited recipes
     retrieveFavs = () =>{
@@ -169,12 +188,17 @@ class Library extends Component{
 
     renderBookSections = () =>{
 
-        return this.state.cookbooks.map(book => (
+        console.log("cookbooks", this.state.cookbooks);
+
+        const filteredBooks = this.state.cookbooks.filter(book => book !== null);
+
+        return filteredBooks.map(book => (
 
             <BookRecipesSection
                 book={book}
                 toggleShowUnfav = {this.toggleShowUnfav}
                 setUnfavId = {this.setUnfavId}
+                handleDeleteBook={this.handleDeleteBook}
             />
 
         ));

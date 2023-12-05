@@ -109,8 +109,6 @@ export function addCookbook(book_name, recipeId) {
         });
 }
 
-//export function addToCookbook(bookname, recipeId):
-
 export function getBookRecipes(bookname){
     return fetch(`${API_URL}/bookRecipes/${bookname}`, { method: 'GET'})
         .then(response => {
@@ -127,6 +125,26 @@ export function getBookRecipes(bookname){
         });
 }
 
+export function deleteBook(bookname){
+    return fetch(`${API_URL}/cookbooks/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({book_name: bookname})
+    })
+        .then(response => {
+            if(!response.ok){
+                throw new Error('Network response is NOT OKAY');
+            }
+
+            //return the Json response
+            return response.json();
+        })
+        .catch(error =>{
+            console.error('Fetch operation error: ', error);
+        });
+}
 
 export function getFavs() {
     return fetch(`${API_URL}/favourites/`, { method: 'GET'})
