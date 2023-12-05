@@ -29,7 +29,9 @@ const RecipeCard = (props) =>{
                     {/* Favourite and add to cookbook buttons */}
                 <div className="row my-3">
                     <div className='d-flex justify-content-center justify-content-center'>
-                        {/*<span className='mx-1'><FavBtn id={props.id}></FavBtn></span>*/}
+
+                        {/*Only show the buttons if the props provide the correct variables*/}
+                        {/*For Favourite Page*/}
                         {props.cookbooks && ( <BookBtn id={props.id} cookbooks={props.cookbooks} onBookCreated={props.updateBooks}></BookBtn> )}
                         {props.toggleShowUnfav && (
                             <>
@@ -39,6 +41,10 @@ const RecipeCard = (props) =>{
                                 </div>
                             </>
                         )}
+
+                        {/*For Cookbook page*/}
+                        {props.isbook && (<FavBtn id={props.id}></FavBtn>)}
+
                     </div>
                 </div>
 

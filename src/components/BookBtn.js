@@ -7,10 +7,20 @@ const BookBtn = (props) =>{
     const [creatingNewBook, setCreatingNewBook] = useState(false);  //used to reveal menu for creating new book
     const [newBookName, setNewBookName] = useState('');               //used to fill out new book names
     const [showAlert, setAlert] = useState(false);                  //used to alert users when they have tried to submit an empty title for a book
+    const [linkClicked, setLinkClicked] = useState(false);          //needed for adding recipes to existing books via existing links
 
+    //waiting for a the value of linkClicked to be changed. When it is run the following code and logic
+    useEffect(()=>{
+        if(linkClicked){
+
+            handleCreateCookbook();
+        }
+    }, [linkClicked])
 
     //makes sure that the users has entered a valid name and then makes a post request to backend
     const handleCreateCookbook = () =>{
+
+        console.log("I was called. newBookName: ", newBookName);
 
         //verifying that users did not submit an empty field
         if(newBookName.trim().length === 0){
@@ -36,9 +46,31 @@ const BookBtn = (props) =>{
 
     }
 
+    // for onclick of existing cookbook links
+    const handleLinkClick = (book) => {
+        console.log( "link click book name: ", book);
+        clickSetBookName(book, (updatedValue) => {
+            console.log("newBookname now: ", updatedValue); // This will log the updated value
+
+        });
+    };
+
+    // used to set the newBook name and trigger a callback
+    const clickSetBookName = (book, callback) =>{
+
+        setNewBookName((prevValue) => {
+            if (callback && typeof callback === 'function') {
+                callback(book);
+                setLinkClicked(true);
+            }
+            return book;
+        });
+    };
+
+
     //creating a link for each existing cookbook attached to the account
     const cookbookLinks = props.cookbooks.map((cookbook, index) => (
-        <Dropdown.Item>{cookbook}</Dropdown.Item>
+        <Dropdown.Item onClick={()=>{handleLinkClick(cookbook)}} >{cookbook}</Dropdown.Item>
     ));
 
     //reading in each character that the user enters in the text field
@@ -100,7 +132,6 @@ const BookBtn = (props) =>{
 
               </Modal.Body>
           </Modal>
-
 
       </>
     );

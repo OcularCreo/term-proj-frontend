@@ -13,6 +13,8 @@ const FavBtn = (props) =>{
                 const recipeStatus = await getRecipeStatus(props.id);
                 setIsFav(recipeStatus);
 
+                console.log("isFav right now: ", isFav);
+
             }
             catch(error){
                 console.error("Error fetching Recipe: ", error);

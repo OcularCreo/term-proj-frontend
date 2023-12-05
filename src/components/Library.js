@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import {Button, Container, FormControl, InputGroup, Modal, ToggleButton} from "react-bootstrap";
 import { ButtonGroup, ToggleButtonGroup } from "react-bootstrap";
-import {addFavourite, getCookBooks, getFavs} from "../services/apiServices";
+import {addFavourite, getBookRecipes, getCookBooks, getFavs} from "../services/apiServices";
 import foodimage from "../images/chicken.jpg";
 import FavBtn from "./FavBtn";
 import BookBtn from "./BookBtn";
 import RecipeCard from "./RecipeCard";
 import SearchItem from "./SearchItem";
+import BookRecipesSection from "./BookRecipesSection";
 
 class Library extends Component{
 
@@ -127,12 +128,55 @@ class Library extends Component{
 
     }
 
+
+    /*
+    renderBookRecipes = (bookname) =>{
+
+        let formattedRecipes;
+
+        getBookRecipes(bookname)
+            .then(recipes => {
+
+                formattedRecipes = Object.values(recipes);
+
+            })
+            .catch(error => {
+                console.error('The following error occured: ', error);
+            });
+
+        console.log("formatted: ", formattedRecipes);
+
+        //when we get recipes create a card for each recipe
+        if(formattedRecipes){
+            return formattedRecipes.map(recipe => (
+
+                <RecipeCard
+                    id={recipe.id}
+                    name={recipe.name}
+                    cookbooks = {this.state.cookbooks}
+                    updateBooks = {this.updateBooks}
+                    toggleShowUnfav={this.toggleShowUnfav}
+                    setUnfavId={this.setUnfavId}
+                />
+
+            ));
+        } else {
+            return (<></>); //return nothing
+        }
+
+    }
+    */
+
     renderBookSections = () =>{
 
         return this.state.cookbooks.map(book => (
-            <div className='mt-4'>
-                <h1>{book}</h1>
-            </div>
+
+            <BookRecipesSection
+                book={book}
+                toggleShowUnfav = {this.toggleShowUnfav}
+                setUnfavId = {this.setUnfavId}
+            />
+
         ));
 
     }
@@ -197,7 +241,7 @@ class Library extends Component{
 
                   </Container>
               ) : (
-                  <Container>
+                  <Container className='mt-5'>
                       <div className='row'>
                           {this.renderBookSections()}
                       </div>
